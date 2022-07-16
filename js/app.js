@@ -1,47 +1,55 @@
 console.log('this works')
 const startGame = () => {
-
+    let playerOneName = prompt("Player One Name?")
+    let playerTwoName = prompt("Player Two Name?")
+    setInterval(draw, 10); 
 }
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-var x = canvas.width/2;
-var y = canvas.height-80;
-let dx = 2;
-let dy = -2;
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-    x += dx;
-    y += dy;
+document.addEventListener('click', startGame)
+class Game{
+    constructor(){
+        this.canvas = document.getElementById("canvas");
+        //"canvas" is what is allowing the ball to be drawn on
+        this.canvasContext = this.canvas.getContext("2d");
+        //paints stores the variable to paint on the canvas
+        this.canvasX = this.canvas.width/2;
+        this.canvasY = this.canvas.height-80;
+        this.drawnX = 2;
+        this.drawnY = -2;
+        this.ballRadius = 10;
+    }
 }
-setInterval(draw, 10);
-// ctx.beginPath();
-// ctx.arc(50, 50, 10, 0, Math.PI*2);
-// ctx.fillStyle = "#0095DD";
-// ctx.fill();
-// ctx.closePath();
-// let x = canvas.width/2;
-// let y = canvas.height-30;
-
+const game = new Game
+// console.log(game.canvas.width)
 function drawBall() {
-    ctx.beginPath();
-    ctx.arc(x, y, 10, 0, Math.PI*2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+    game.canvasContext.beginPath();
+    //Starts a line from the given point
+    game.canvasContext.arc(game.canvasX, game.canvasY, game.ballRadius, 0, Math.PI*2);
+    //creates the shape of the circle
+    game.canvasContext.fillStyle = '#1B1B1B'
+    game.canvasContext.fill()
+    //Fills colors and given color
+    game.canvasContext.closePath();
+    //Makes a trail back to the original starting point
+    
 }
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
     drawBall();
-    x += dx;
-    y += dy;
+    game.canvasX += game.drawnX;
+
+    game.canvasY += game.drawnY;
+    if(game.canvasX + game.drawnX > game.canvas.width-game.ballRadius || game.canvasX + game.drawnX < game.ballRadius) {
+        //Uses logical operator to ch
+        game.drawnX = -game.drawnX;
+    }
+    
+    if(game.canvasY + game.drawnY > game.canvas.height-game.ballRadius || game.canvasY + game.drawnY < game.ballRadius) {
+        game.drawnY = -game.drawnY;
+    }
+    
 }
+
 
 
 //DEFINE function called start screen
