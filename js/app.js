@@ -1,10 +1,18 @@
 console.log('this works')
 const startGame = () => {
     let playerOneName = prompt("Player One Name?")
+    if (playerOneName === ''){
+        let playerOneName = 'Player One' 
+    }
     let playerTwoName = prompt("Player Two Name?")
+    if (playerTwoName === '' ){
+        let playerTwoName = 'Player Two'
+    }
     setInterval(draw, 10); 
 }
-document.addEventListener('click', startGame)
+let startButton = document.getElementById('start-game')
+startButton.addEventListener('click', startGame)
+
 class Game{
     constructor(){
         this.canvas = document.getElementById("canvas");
