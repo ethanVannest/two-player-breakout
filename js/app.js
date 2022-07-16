@@ -12,7 +12,26 @@ const startGame = () => {
 }
 let startButton = document.getElementById('start-game')
 startButton.addEventListener('click', startGame)
-
+class Win {
+    constructor(){
+        this.playerOneScore = 0
+        this.playerTwoScore = 0
+        this.gameTime = 0
+    }
+    restartGame(){
+        
+    }
+    checkScore(){
+         if (this.playerOneScore > this.playerTwoScore){
+            alert(`${playerOneName} Wins!`)
+         } else if(this.playerOneScore === this.playerTwoScore){
+            alert('It is a DRAW!')
+        }else{
+            alert(`${playerTwoName} Wins!`)
+        }
+     }   
+}
+const winConditions = new Win 
 class Game{
     constructor(){
         this.canvas = document.getElementById("canvas");
@@ -43,12 +62,13 @@ function drawBall() {
 
 function draw() {
     game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
+    //clear rect clears a solid line that would be left behind the ball moving
     drawBall();
     game.canvasX += game.drawnX;
 
     game.canvasY += game.drawnY;
     if(game.canvasX + game.drawnX > game.canvas.width-game.ballRadius || game.canvasX + game.drawnX < game.ballRadius) {
-        //Uses logical operator to ch
+        //Uses logical operator to check that if con
         game.drawnX = -game.drawnX;
     }
     
