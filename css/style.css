@@ -1,3 +1,39 @@
-p {
-    color:aqua
+canvas {
+    background: #eee; 
+    display: block; 
+    margin: 0 auto;
 }
+body {
+    color: white;
+    background-color:skyblue;
+}
+
+#start, #game-over {
+    color: grey;
+    padding: 20px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    height:100px;
+    width:150px;
+    border-radius: 15%;
+    text-align: center;
+    font-size:1.5em;
+}
+
+#start a, #game-over a {
+    border: 3px solid white;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 15px;
+    display: block;
+    width: 200px;
+    font-size:1.5em;
+    text-align: center;
+    display: inline-block;
+}
+
+#start a:hover, #game-over a:hover { background-color: #ffffff; color: #1bafdb; }
