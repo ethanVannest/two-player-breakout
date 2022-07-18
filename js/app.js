@@ -56,7 +56,7 @@ const game = new Game
 class Paddle{
     constructor(){
         this.paddleHeight = 20
-        this.paddleWidth = 80
+        this.paddleWidth = 120
         this.paddleX = (game.canvas.width-this.paddleWidth)/2
     }
 }
@@ -65,11 +65,11 @@ const paddle = new Paddle
 
 function drawPaddle() {
     game.canvasContext.beginPath()
-    game.canvasContext.rect(paddle.paddleX, paddle.canvas-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
+    game.canvasContext.rect(paddle.paddleX, game.canvas.height-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
     //the .rect method creates a rectangle taking 
     //takes parameters that take the dimmensions of the paddle
-    game.canvasContext.fillStyle = '1B1B1B'
     //returns color to canvas
+    game.canvasContext.fillStyle = '#1B1B1B'
     game.canvasContext.fill()
     game.canvasContext.closePath()
     
@@ -87,11 +87,13 @@ function drawBall() {
     //Makes a trail back to the original starting point
     
 }
+// console.log(drawBall());
 
 function draw() {
     game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
     //clear rect clears a solid line that would be left behind the ball moving
     drawBall();
+    drawPaddle();
     game.canvasX += game.drawnX;
 
     game.canvasY += game.drawnY;
