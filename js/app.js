@@ -8,7 +8,7 @@ const startGame = () => {
     if (playerTwoName === '' ){
         let playerTwoName = 'Player Two'
     }
-    setInterval(draw, 10); 
+    setInterval(draw, 10);
 }
 let startButton = document.getElementById('start-game')
 startButton.addEventListener('click', startGame)
@@ -19,17 +19,24 @@ class Win {
         this.gameTime = 0
     }
     restartGame(){
+        //IF playerOne score and Playertwo score is greater than zero 
+        //RESET blocks
+        //RESET scores to zero
+        //RETURN to main screen
+        //ELSE then 
+        //RESET blocks
+        //SWITCH player score 
         
     }
     checkScore(){
-         if (this.playerOneScore > this.playerTwoScore){
+        if (this.playerOneScore > this.playerTwoScore){
             alert(`${playerOneName} Wins!`)
-         } else if(this.playerOneScore === this.playerTwoScore){
+        } else if(this.playerOneScore === this.playerTwoScore){
             alert('It is a DRAW!')
         }else{
             alert(`${playerTwoName} Wins!`)
         }
-     }   
+    }   
 }
 const winConditions = new Win 
 class Game{
@@ -46,7 +53,28 @@ class Game{
     }
 }
 const game = new Game
+class Paddle{
+    constructor(){
+        this.paddleHeight = 20
+        this.paddleWidth = 80
+        this.paddleX = (game.canvas.width-this.paddleWidth)/2
+    }
+}
+const paddle = new Paddle
 // console.log(game.canvas.width)
+
+function drawPaddle() {
+    game.canvasContext.beginPath()
+    game.canvasContext.rect(paddle.paddleX, paddle.canvas-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
+    //the .rect method creates a rectangle taking 
+    //takes parameters that take the dimmensions of the paddle
+    game.canvasContext.fillStyle = '1B1B1B'
+    //returns color to canvas
+    game.canvasContext.fill()
+    game.canvasContext.closePath()
+    
+}
+
 function drawBall() {
     game.canvasContext.beginPath();
     //Starts a line from the given point
@@ -68,16 +96,17 @@ function draw() {
 
     game.canvasY += game.drawnY;
     if(game.canvasX + game.drawnX > game.canvas.width-game.ballRadius || game.canvasX + game.drawnX < game.ballRadius) {
-        //Uses logical operator to check that if con
+        //Uses logical operator to add another layer of measuremeant to tell the code to send the ball the other way if the game drawn x -axis is less than the radius of the ball *this prevents the ball from disappearing halfway off the screen*
         game.drawnX = -game.drawnX;
+        //this says that if the ball is touching the left or right side of the canvas then it is reversed
     }
     
     if(game.canvasY + game.drawnY > game.canvas.height-game.ballRadius || game.canvasY + game.drawnY < game.ballRadius) {
         game.drawnY = -game.drawnY;
+        //if the ball is touching the top or bottom of the canvas then it is reversed
     }
     
 }
-
 
 
 //DEFINE function called start screen
