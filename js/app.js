@@ -99,7 +99,7 @@ function draw() {
     drawBall();
     drawPaddle();
     game.canvasX += game.drawnX;
-
+    
     game.canvasY += game.drawnY;
     if(game.canvasX + game.drawnX > game.canvas.width-game.ballRadius || game.canvasX + game.drawnX < game.ballRadius) {
         //Uses logical operator to add another layer of measuremeant to tell the code to send the ball the other way if the game drawn x -axis is less than the radius of the ball *this prevents the ball from disappearing halfway off the screen*
@@ -110,33 +110,40 @@ function draw() {
     if(game.canvasY + game.drawnY > game.canvas.height-game.ballRadius || game.canvasY + game.drawnY < game.ballRadius) {
         game.drawnY = -game.drawnY;
         //if the ball is touching the top or bottom of the canvas then it is reversed
+    }
+    if (paddle.rightPressed){
+        paddle.paddleX += 2
+        if (paddle.paddleX > 1180) {
+            paddle.paddleX = 1180
+        }
+        // console.log(paddle.paddleX)
+    } else if (paddle.leftPressed){
+        paddle.paddleX -= 2
+        if (paddle.paddleX < 0){
+            paddle.paddleX = 0
         }
     }
+}
+document.addEventListener("keydown", keydown) 
+    document.addEventListener('keyup', keyup)
+    // console.log(paddle.rightPressed)
     function  keydown(e){
         if (e.code === 'ArrowRight'){
+            paddle.rightPressed = true;
             // console.log(paddle.rightPressed)
-            rightPressed = true;
         } else if (e.code === 'ArrowLeft' ) {
-            leftPressed = true;
+            paddle.leftPressed = true;
         }
     }
-    console.log(paddle.rightPressed)
     function  keyup(e){
         if (e.code === 'ArrowRight'){
             paddle.rightPressed = false;
-            console.log(e.code)
+            // console.log(e.code)
         } else if (e.code === 'ArrowLeft' ) {
-            console.log(e.code)
+            // console.log(e.code)
             paddle.leftPressed = false;
         }
     }
-    if (paddle.rightPressed){
-        paddle.paddleX += 7
-    } else if (paddle.leftPressed){
-        paddle.paddleX -= 7
-    }
-    document.addEventListener("keydown", keydown) 
-    document.addEventListener('keyup', keyup)
     //DEFINE function called start screen
     // change screen to actual game
     //DEFINE function called start game
