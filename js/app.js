@@ -65,8 +65,30 @@ class Paddle{
     }
 }
 const paddle = new Paddle
+class Bricks {
+    constructor(){
+        this.brick = []
+        this.bRow = 3 
+        this.bColumn = 4 
+        this.bHeight = 40
+        this.bWidth = 120
+        this.bPadding = 20
+        this.bMargTop = 20 //this is the space from the top of the padding the brick has
+        this.bMargLeft = 20
+        //the space to the left of the brick outside of the padding
+    }
+}
 // console.log(game.canvas.width)
-
+const bricks = new Bricks 
+// let brickLoop =() => {
+//     for (let i = 0; i < bricks.bRow; i++){
+//         bricks.brick[i] = [];
+//         for (let j = 0; j < bricks.bColumn; j++){
+//             bricks.brick[i][j] = {x: 0, y: 0 };
+//             // console.log(bricks[i])
+//         }
+//     }
+// }
 function drawPaddle() {
     game.canvasContext.beginPath()
     game.canvasContext.rect(paddle.paddleX, game.canvas.height-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
@@ -78,7 +100,21 @@ function drawPaddle() {
     game.canvasContext.closePath()
     
 }
-
+function drawBricks(){
+    for (let i = 0; i < bricks.bRow; i++){
+        for (let j = 0; j < bricks.bColumn; j++){
+            let brickX = (i*(bricks.bWidth+bricks.brickPadding))+bricks.bMargLeft;
+            let brickY = (j*(bricks.bHeight+bricks.brickPadding))+bricks.bMargTop;
+            bricks.brick[i][j].x = brickX
+            bricks.brick[i][j].y = brickY
+            game.canvasContext.beginPath()
+            game.canvasContext.rect(0,0,bricks.bWidth,bricks.bHeight)
+            game.canvasContext.fillStyle = '#1B1B1B'
+            game.canvasContext.fill()
+            game.canvasContext.closePath()
+        }
+    }
+}
 function drawBall() {
     game.canvasContext.beginPath();
     //Starts a line from the given point
@@ -98,6 +134,7 @@ function draw() {
     //clear rect clears a solid line that would be left behind the ball moving
     drawBall();
     drawPaddle();
+    drawBricks();
     game.canvasX += game.drawnX;
     
     game.canvasY += game.drawnY;
@@ -111,6 +148,19 @@ function draw() {
         game.drawnY = -game.drawnY;
         //if the ball is touching the top or bottom of the canvas then it is reversed
     }
+
+    //doesnt work ball goes straight through the paddle
+    // if (game.drawnY + game.canvasY < game.ballRadius){
+    //     game.drawnY = -game.drawnY
+    // } else if (game.drawnY > game.canvas.height-game.ballRadius) {
+    //     if (game.canvasX > paddle.paddleX && game.canvasX < paddle.paddleWidth + paddle.paddleX) {
+    //         game.drawnY = -game.drawnY
+    //     }
+
+    //Doesnt work it keeps the ball below the paddle
+    // if (game.ballRadius < paddle.paddleX) {
+    //     game.drawnY = -game.drawnY
+    // }
     if (paddle.rightPressed){
         paddle.paddleX += 2
         if (paddle.paddleX > 1180) {
@@ -124,6 +174,7 @@ function draw() {
         }
     }
 }
+// }
 document.addEventListener("keydown", keydown) 
     document.addEventListener('keyup', keyup)
     // console.log(paddle.rightPressed)
