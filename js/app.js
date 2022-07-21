@@ -9,6 +9,7 @@ const startGame = () => {
         let playerTwoName = 'Player Two'
     }
     setInterval(draw, 10);
+    setInterval(1000)
 }
 let startButton = document.getElementById('start-game')
 startButton.addEventListener('click', startGame)
@@ -17,6 +18,9 @@ class Win {
         this.playerOneScore = 0
         this.playerTwoScore = 0
         this.gameTime = 0
+    }
+    checkGameTime (){
+        this.gameTime ++ 
     }
     restartGame(){
         //IF playerOne score and Playertwo score is greater than zero 
@@ -69,7 +73,7 @@ class Bricks {
     constructor(){
         this.brick = []
         this.bRow = 3 
-        this.bColumn = 4 
+        this.bColumn = 5
         this.bHeight = 40
         this.bWidth = 120
         this.bPadding = 20
@@ -81,37 +85,40 @@ class Bricks {
 // console.log(game.canvas.width)
 const bricks = new Bricks 
 // let brickLoop =() => {
-//     for (let i = 0; i < bricks.bRow; i++){
-//         bricks.brick[i] = [];
-//         for (let j = 0; j < bricks.bColumn; j++){
-//             bricks.brick[i][j] = {x: 0, y: 0 };
-//             // console.log(bricks[i])
-//         }
-//     }
-// }
-function drawPaddle() {
-    game.canvasContext.beginPath()
-    game.canvasContext.rect(paddle.paddleX, game.canvas.height-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
-    //the .rect method creates a rectangle taking 
-    //takes parameters that take the dimmensions of the paddle
-    //returns color to canvas
-    game.canvasContext.fillStyle = '#1B1B1B'
-    game.canvasContext.fill()
-    game.canvasContext.closePath()
-    
-}
-function drawBricks(){
     for (let i = 0; i < bricks.bRow; i++){
+        // bricks.brick[i] = [];
         for (let j = 0; j < bricks.bColumn; j++){
-            let brickX = (i*(bricks.bWidth+bricks.brickPadding))+bricks.bMargLeft;
-            let brickY = (j*(bricks.bHeight+bricks.brickPadding))+bricks.bMargTop;
-            bricks.brick[i][j].x = brickX
-            bricks.brick[i][j].y = brickY
-            game.canvasContext.beginPath()
-            game.canvasContext.rect(0,0,bricks.bWidth,bricks.bHeight)
-            game.canvasContext.fillStyle = '#1B1B1B'
-            game.canvasContext.fill()
-            game.canvasContext.closePath()
+            // bricks.brick[i][j] = {x: 0, y: 0 };
+            // console.log(bricks.brick[i][j].x)
+        }
+    }
+    brick[i][j] = {x:0, y:0}
+    // }
+    function drawPaddle() {
+        game.canvasContext.beginPath()
+        game.canvasContext.rect(paddle.paddleX, game.canvas.height-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
+        //the .rect method creates a rectangle taking 
+        //takes parameters that take the dimmensions of the paddle
+        //returns color to canvas
+        game.canvasContext.fillStyle = '#1B1B1B'
+        game.canvasContext.fill()
+        game.canvasContext.closePath()
+        
+    }
+    function drawBricks(){
+        // brickLoop()
+        for (let i = 0; i < bricks.bRow; i++){
+            for (let j = 0; j < bricks.bColumn; j++){
+                let brickX = (i*(bricks.bWidth+bricks.bPadding))+bricks.bMargLeft;
+                let brickY = (j*(bricks.bHeight+bricks.bPadding))+bricks.bMargTop;
+                bricks.brick[i][j].x = brickX
+                bricks.brick[i][j].y = brickY
+                game.canvasContext.beginPath()
+                game.canvasContext.rect(0,0,bricks.bWidth,bricks.bHeight)
+                game.canvasContext.fillStyle = '#1B1B1B'
+                game.canvasContext.fill()
+                game.canvasContext.closePath()
+                console.log(bricks.brick[i][j].x)
         }
     }
 }
@@ -162,13 +169,13 @@ function draw() {
     //     game.drawnY = -game.drawnY
     // }
     if (paddle.rightPressed){
-        paddle.paddleX += 2
-        if (paddle.paddleX > 1180) {
-            paddle.paddleX = 1180
+        paddle.paddleX += 4
+        if (paddle.paddleX > 880) {
+            paddle.paddleX = 880
         }
         // console.log(paddle.paddleX)
     } else if (paddle.leftPressed){
-        paddle.paddleX -= 2
+        paddle.paddleX -= 4
         if (paddle.paddleX < 0){
             paddle.paddleX = 0
         }

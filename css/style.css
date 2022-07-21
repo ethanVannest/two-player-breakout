@@ -35,5 +35,7 @@ body {
     text-align: center;
     display: inline-block;
 }
-
+#sideBar{
+position: absolute;
+}
 #start a:hover, #game-over a:hover { background-color: #ffffff; color: #1bafdb; }
