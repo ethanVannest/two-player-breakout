@@ -9,7 +9,7 @@ const startGame = () => {
         let playerTwoName = 'Player Two'
     }
     setInterval(draw, 10);
-    setInterval(1000)
+    setInterval(winConditions.checkGameTime(),1000)
 }
 let startButton = document.getElementById('start-game')
 startButton.addEventListener('click', startGame)
@@ -43,6 +43,7 @@ class Win {
     }   
 }
 const winConditions = new Win 
+console.log(winConditions.checkGameTime())
 class Game{
     constructor(){
         this.canvas = document.getElementById("canvas");
@@ -72,7 +73,7 @@ const paddle = new Paddle
 class Bricks {
     constructor(){
         this.brick = []
-        this.bRow = 3 
+        this.bRow = 7
         this.bColumn = 5
         this.bHeight = 40
         this.bWidth = 120
@@ -85,14 +86,14 @@ class Bricks {
 // console.log(game.canvas.width)
 const bricks = new Bricks 
 // let brickLoop =() => {
-    for (let i = 0; i < bricks.bRow; i++){
-        // bricks.brick[i] = [];
-        for (let j = 0; j < bricks.bColumn; j++){
-            // bricks.brick[i][j] = {x: 0, y: 0 };
+    for (var i = 0; i < bricks.bRow; i++){
+        bricks.brick[i] = [];
+        for (var j = 0; j < bricks.bColumn; j++){
+            bricks.brick[i][j] = {x: 0, y: 0 };
             // console.log(bricks.brick[i][j].x)
         }
     }
-    brick[i][j] = {x:0, y:0}
+    // bricks.brick = {x:0, y:0}
     // }
     function drawPaddle() {
         game.canvasContext.beginPath()
@@ -110,15 +111,17 @@ const bricks = new Bricks
         for (let i = 0; i < bricks.bRow; i++){
             for (let j = 0; j < bricks.bColumn; j++){
                 let brickX = (i*(bricks.bWidth+bricks.bPadding))+bricks.bMargLeft;
+                console.log("brickX",brickX)
+                //when itterated over this multiplies each of the values by its corresponding amount so that the bricks are equal distance apart
                 let brickY = (j*(bricks.bHeight+bricks.bPadding))+bricks.bMargTop;
+                //similar idea of multiplying by each iteration
                 bricks.brick[i][j].x = brickX
                 bricks.brick[i][j].y = brickY
                 game.canvasContext.beginPath()
-                game.canvasContext.rect(0,0,bricks.bWidth,bricks.bHeight)
+                game.canvasContext.rect(brickX,brickY,bricks.bWidth,bricks.bHeight)
                 game.canvasContext.fillStyle = '#1B1B1B'
                 game.canvasContext.fill()
                 game.canvasContext.closePath()
-                console.log(bricks.brick[i][j].x)
         }
     }
 }
