@@ -1,12 +1,15 @@
 console.log('this works')
     var drawInt
+    var twoPlayerInt
+    var playerOneName
+    var playerTwoName
     const startButton = document.getElementById('start-game')
     startButton.addEventListener('click', event => {
-            let playerOneName = prompt("Player One Name?")
+             playerOneName = prompt("Player One Name?")
             if (playerOneName === ''){
                 let playerOneName = 'Player One' 
             }
-            let playerTwoName = prompt("Player Two Name?")
+             playerTwoName = prompt("Player Two Name?")
             if (playerTwoName === '' ){
                 let playerTwoName = 'Player Two'
             }
@@ -27,16 +30,16 @@ console.log('this works')
             this.gameTime = 0
             this.setPlayer = this.playerOneScore
             startButton.addEventListener('click', function() {
-                setInterval(() => {
+                let twoPlayerInt = setInterval(() => {
                     winConditions.setPlayer ++
-                    // winConditions.setPlayer = winConditions.playerOneScore
+                    winConditions.playerOneScore = winConditions.setPlayer 
                     winConditions.playerOneScoreID.innerText = `Score: ${winConditions.setPlayer}`
                     
                 }, 1000)            
             })       
         }
         checkScore(){
-            if (this.playerOneScore > this.playerTwoScore){
+            if (this.playerOneScore < this.playerTwoScore){
                 alert(`${playerOneName} Wins!`)
             } else if(this.playerOneScore === this.playerTwoScore){
                 alert('It is a DRAW!')
@@ -46,12 +49,21 @@ console.log('this works')
         }
     }
     const winConditions = new Win 
+    console.log(winConditions.playerOneScore)
     const checkForPlayerTwo = () => {
         if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
-            winConditions.setPlayer = game.playerTwoScore
+            alert(`Ball missed the paddle! Up next is ${playerTwoName}!` )
+            winConditions.setPlayer = winConditions.playerTwoScore
             winConditions.currentId = winConditions.playerTwoScoreID
+            // bricks.brick[i][j].hp = 1
+            
+        } else {
+            alert("GAME OVER")
+            location.reload()
+            clearInterval(drawInt)
         }
     }
+    console.log(winConditions.playerOneScore)
     
 class Game{
     constructor(){
@@ -105,13 +117,13 @@ const bricks = new Bricks
     // bricks.brick = {x:0, y:0}
     // }
     //IF playerOne score and Playertwo score is greater than zero 
-    function clearGame() {
-    if (winConditions.playerOneScore > winConditions.playerTwoScore && winConditions.playerTwoScore === 0) {
-        //RESET blocks
-            bricks.brick[i][j].hp = 1;
-            winConditions.setPlayer = playerTwoScore;
-            }
-        }
+    // function clearGame() {
+    // if (winConditions.playerOneScore > winConditions.playerTwoScore && winConditions.playerTwoScore === 0) {
+    //     //RESET blocks
+    //         bricks.brick[i][j].hp = 1;
+    //         winConditions.setPlayer = playerTwoScore;
+    //         }
+    //     }
         //RESET scores to zero
         //RETURN to main screen
         //ELSE then 
@@ -221,13 +233,12 @@ function draw() {
     } else if (game.canvasY + game.drawnY > game.canvas.height-game.ballRadius) {
         if (game.canvasX > paddle.paddleX && game.canvasX < (paddle.paddleX + paddle.paddleWidth)) {
             game.drawnY = -game.drawnY
-            console.log(game.canvasX)
         }
         else {
             checkForPlayerTwo()
-            alert("GAME OVER")
-            location.reload()
-            clearInterval(drawInt)
+            // alert("GAME OVER")
+            // location.reload()
+            // clearInterval(drawInt)
         } 
     }
 //game.canvasY + game.drawnY > game.canvas.height-game.ballRadius    
