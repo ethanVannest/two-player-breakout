@@ -3,6 +3,7 @@ console.log('this works')
     var twoPlayerInt
     var playerOneName
     var playerTwoName
+    var paddleX
     const startButton = document.getElementById('start-game')
     startButton.addEventListener('click', event => {
              playerOneName = prompt("Player One Name?")
@@ -75,6 +76,7 @@ console.log('this works')
             this.paddleX = (game.canvas.width-this.paddleWidth)/2
             this.moveRight = false
             this.moveLeft = false
+            console.log(this.paddleX)
         }
     }
     const paddle = new Paddle
@@ -131,24 +133,31 @@ console.log('this works')
                         game.canvasContext.closePath()
                         
                     }
+                    const ballMissed = () => {
+                        alert(`Ball missed the paddle! Up next is ${playerTwoName}!`);
+                    }
+                    const stopBallMissed = (int) => {
+                        clearInterval(int)
+                    }
                     console.log(winConditions.playerOneScore)
                     const checkForPlayerTwo = (event) => {
-                        // let message = confirm(`Ball missed the paddle! Up next is ${playerTwoName}!`)
-                        if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
-                            winConditions.playerTwoScore = winConditions.setPlayer 
-                            winConditions.setPlayer = 0
-                            // = winConditions.playerTwoScore
-                            winConditions.currentId = winConditions.playerTwoScoreID
-                            // if(){
-                                // bricks.brick[i][j].hp = 1
-                                paddle.paddleHeight = 20
-                                paddle.paddleWidth = 120
-                                paddle.paddleX = (game.canvas.width-this.paddleWidth)/2
-                                drawPaddle()
-                                game.canvasX = game.canvas.width/2;
-                                game.canvasY = this.canvas.height-130;
-                                game.drawnY = -game.drawnY 
-                        } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0) {
+                        // let message = setInterval(() =>{
+                        //     alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
+                        //     },100);
+                            let missedInt = setInterval(ballMissed, 100)
+                            stopBallMissed(missedInt)
+                            // clearInterval(missedInt)
+                            if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
+                                winConditions.playerTwoScore = winConditions.setPlayer 
+                                winConditions.setPlayer = 0
+                                // = winConditions.playerTwoScore
+                                winConditions.currentId = winConditions.playerTwoScoreID
+                                paddle.paddleX = 440
+                                    game.canvasX = game.canvas.width/2;
+                                    game.canvasY = this.canvas.height-130;
+                                    game.drawnY = -game.drawnY 
+                                    // clearInterval(message)
+                                } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0) {
                             alert("GAME OVER")
                             location.reload()
                             clearInterval(drawInt)
