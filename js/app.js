@@ -141,22 +141,17 @@ console.log('this works')
                     }
                     console.log(winConditions.playerOneScore)
                     const checkForPlayerTwo = (event) => {
-                        // let message = setInterval(() =>{
-                        //     alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
-                        //     },100);
-                            let missedInt = setInterval(ballMissed, 100)
-                            stopBallMissed(missedInt)
-                            // clearInterval(missedInt)
+                        for (el = 0; el < 1; el++){
+                            alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
+                        }
                             if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
                                 winConditions.playerTwoScore = winConditions.setPlayer 
                                 winConditions.setPlayer = 0
-                                // = winConditions.playerTwoScore
                                 winConditions.currentId = winConditions.playerTwoScoreID
                                 paddle.paddleX = 440
                                     game.canvasX = game.canvas.width/2;
                                     game.canvasY = this.canvas.height-130;
                                     game.drawnY = -game.drawnY 
-                                    // clearInterval(message)
                                 } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0) {
                             alert("GAME OVER")
                             location.reload()
