@@ -1,9 +1,7 @@
 console.log('this works')
     var drawInt
-    let startButton = document.getElementById('start-game')
+    const startButton = document.getElementById('start-game')
     startButton.addEventListener('click', event => {
-        
-        // const startGame = () => {
             let playerOneName = prompt("Player One Name?")
             if (playerOneName === ''){
                 let playerOneName = 'Player One' 
@@ -17,32 +15,44 @@ console.log('this works')
             // setInterval(winConditions.checkGameTime(),1000)
             // drawInterval();
             drawInt = setInterval(draw, 10);
-            
-
     })
-        
-class Win {
-    constructor(){
-        this.playerOneScore = 0
-        this.playerTwoScore = 0
-        this.gameTime = 0
-        this.setPlayer = this.playerOneScore
-    }
-    checkGameTime (){
-        this.gameTime ++ 
-    }
-    checkScore(){
-        if (this.playerOneScore > this.playerTwoScore){
-            alert(`${playerOneName} Wins!`)
-        } else if(this.playerOneScore === this.playerTwoScore){
-            alert('It is a DRAW!')
-        }else{
-            alert(`${playerTwoName} Wins!`)
+    
+    class Win {
+        constructor(){
+            this.playerOneScoreID = document.getElementById('player1_score')
+            this.playerTwoScoreID = document.getElementById('player2_score')
+            this.currentId = this.playerOneScoreID
+            this.playerOneScore = 0
+            this.playerTwoScore = 0
+            this.gameTime = 0
+            this.setPlayer = this.playerOneScore
+            startButton.addEventListener('click', function() {
+                setInterval(() => {
+                    winConditions.setPlayer ++
+                    // winConditions.setPlayer = winConditions.playerOneScore
+                    winConditions.playerOneScoreID.innerText = `Score: ${winConditions.setPlayer}`
+                    
+                }, 1000)            
+            })       
         }
-    }   
-}
-const winConditions = new Win 
-
+        checkScore(){
+            if (this.playerOneScore > this.playerTwoScore){
+                alert(`${playerOneName} Wins!`)
+            } else if(this.playerOneScore === this.playerTwoScore){
+                alert('It is a DRAW!')
+            }else{
+                alert(`${playerTwoName} Wins!`)
+            }
+        }
+    }
+    const winConditions = new Win 
+    const checkForPlayerTwo = () => {
+        if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
+            winConditions.setPlayer = game.playerTwoScore
+            winConditions.currentId = winConditions.playerTwoScoreID
+        }
+    }
+    
 class Game{
     constructor(){
         this.canvas = document.getElementById("canvas");
@@ -214,7 +224,7 @@ function draw() {
             console.log(game.canvasX)
         }
         else {
-            console.log('This works')
+            checkForPlayerTwo()
             alert("GAME OVER")
             location.reload()
             clearInterval(drawInt)
