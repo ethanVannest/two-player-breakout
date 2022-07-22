@@ -141,12 +141,12 @@ console.log('this works')
                     }
                     console.log(winConditions.playerOneScore)
                     const checkForPlayerTwo = (event) => {
+                    if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
                         for (el = 0; el < 1; el++){
                             alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
                         }
-                            if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
-                                winConditions.playerTwoScore = winConditions.setPlayer 
-                                winConditions.setPlayer = 0
+                        winConditions.playerTwoScore = winConditions.setPlayer 
+                        winConditions.setPlayer = 0
                                 winConditions.currentId = winConditions.playerTwoScoreID
                                 paddle.paddleX = 440
                                     game.canvasX = game.canvas.width/2;
@@ -166,7 +166,6 @@ console.log('this works')
                 if (bricks.brick[i][j].hp === 1){
 
                     let brickX = (i*(bricks.bWidth+bricks.bPadding))+bricks.bMargLeft;
-                    
                     //when itterated over this multiplies each of the values by its corresponding amount so that the bricks are equal distance apart
                     let brickY = (j*(bricks.bHeight+bricks.bPadding))+bricks.bMargTop;
                     //similar idea of multiplying by each iteration
@@ -216,11 +215,15 @@ function  keyup(e){
     }
 }
 function collisionDetection(){
+    var brickArr = bricks.brick
+    var xAxis = game.canvasX
+    var yAxis = game.canvasY
+    var wideBrick = bricks.bWidth
         for(var c=0; c<game.bColumn; c++) {
             for(var r=0; r<game.bRow; r++) {
-                var b = bricks.brick[c][r];
+                var b = brickArr[c][r];
                 // calculations
-                if(game.canvasX > b.game.canvasX && game.canvasX < (b.game.canvasX + game.bWidth) && game.bWidth > b.game.canvasY && game.canvasY < b.game.canvasY+brick.bHeight) {
+                if(xAxis > b.xAxis && xAxis< (b.xAxis + wideBrick) && yAxis > b.yAxis && yAxis < b.yAxis+ bricks.bHeight) {
                     game.drawnY = -game.drawnY;
                 }
             }
@@ -231,10 +234,10 @@ function collisionDetection(){
 function draw() {
     game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
     //clear rect clears a solid line that would be left behind the ball moving
+    collisionDetection();
     drawBall();
     drawPaddle();
     drawBricks();
-    collisionDetection();
     game.canvasX += game.drawnX;
     
     game.canvasY += game.drawnY;
