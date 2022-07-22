@@ -1,21 +1,26 @@
 console.log('this works')
-let startButton = document.getElementById('start-game')
-startButton.addEventListener('click', event => {
+    var drawInt
+    let startButton = document.getElementById('start-game')
+    startButton.addEventListener('click', event => {
+        
+        // const startGame = () => {
+            let playerOneName = prompt("Player One Name?")
+            if (playerOneName === ''){
+                let playerOneName = 'Player One' 
+            }
+            let playerTwoName = prompt("Player Two Name?")
+            if (playerTwoName === '' ){
+                let playerTwoName = 'Player Two'
+            }
+            document.getElementById('player1').innerText = playerOneName
+            document.getElementById('player2').innerText = playerTwoName
+            // setInterval(winConditions.checkGameTime(),1000)
+            // drawInterval();
+            drawInt = setInterval(draw, 10);
+            
 
-    // const startGame = () => {
-        let playerOneName = prompt("Player One Name?")
-        if (playerOneName === ''){
-            let playerOneName = 'Player One' 
-        }
-        let playerTwoName = prompt("Player Two Name?")
-        if (playerTwoName === '' ){
-            let playerTwoName = 'Player Two'
-        }
-        document.getElementById('player1').innerText = playerOneName
-        document.getElementById('player2').innerText = playerTwoName
-        // setInterval(winConditions.checkGameTime(),1000)
-        var drawInterval = setInterval(draw, 10);
     })
+        
 class Win {
     constructor(){
         this.playerOneScore = 0
@@ -210,9 +215,9 @@ function draw() {
         }
         else {
             console.log('This works')
-            // alert("GAME OVER")
-            document.location.reload()
-            clearInterval(drawInterval)
+            alert("GAME OVER")
+            location.reload()
+            clearInterval(drawInt)
         } 
     }
 //game.canvasY + game.drawnY > game.canvas.height-game.ballRadius    
