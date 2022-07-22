@@ -1,24 +1,27 @@
 console.log('this works')
-const startGame = () => {
-    let playerOneName = prompt("Player One Name?")
-    if (playerOneName === ''){
-        let playerOneName = 'Player One' 
-    }
-    let playerTwoName = prompt("Player Two Name?")
-    if (playerTwoName === '' ){
-        let playerTwoName = 'Player Two'
-    }
-    var drawInterval = setInterval(draw, 10);
-    setInterval(winConditions.checkGameTime(),1000)
-}
 let startButton = document.getElementById('start-game')
-startButton.addEventListener('click', startGame)
+startButton.addEventListener('click', event => {
+
+    // const startGame = () => {
+        let playerOneName = prompt("Player One Name?")
+        if (playerOneName === ''){
+            let playerOneName = 'Player One' 
+        }
+        let playerTwoName = prompt("Player Two Name?")
+        if (playerTwoName === '' ){
+            let playerTwoName = 'Player Two'
+        }
+        document.getElementById('player1').innerText = playerOneName
+        document.getElementById('player2').innerText = playerTwoName
+        // setInterval(winConditions.checkGameTime(),1000)
+        var drawInterval = setInterval(draw, 10);
+    })
 class Win {
     constructor(){
         this.playerOneScore = 0
         this.playerTwoScore = 0
         this.gameTime = 0
-        this.setPlayer = ''
+        this.setPlayer = this.playerOneScore
     }
     checkGameTime (){
         this.gameTime ++ 
