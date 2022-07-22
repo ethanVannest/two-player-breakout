@@ -18,19 +18,10 @@ class Win {
         this.playerOneScore = 0
         this.playerTwoScore = 0
         this.gameTime = 0
+        this.setPlayer = ''
     }
     checkGameTime (){
         this.gameTime ++ 
-    }
-    restartGame(){
-        //IF playerOne score and Playertwo score is greater than zero 
-        //RESET blocks
-        //RESET scores to zero
-        //RETURN to main screen
-        //ELSE then 
-        //RESET blocks
-        //SWITCH player score 
-        
     }
     checkScore(){
         if (this.playerOneScore > this.playerTwoScore){
@@ -95,6 +86,23 @@ const bricks = new Bricks
     }
     // bricks.brick = {x:0, y:0}
     // }
+    //IF playerOne score and Playertwo score is greater than zero 
+    function clearGame() {
+    if (winConditions.playerOneScore > winConditions.playerTwoScore && winConditions.playerTwoScore === 0) {
+        //RESET blocks
+            bricks.brick[i][j].hp = 1;
+            winConditions.setPlayer = playerTwoScore;
+            }
+        }
+        //RESET scores to zero
+        //RETURN to main screen
+        //ELSE then 
+        //RESET blocks
+        //SWITCH player score 
+    // function restartGame (checkScore){
+    //     if()
+    // }
+    
     function drawPaddle() {
         game.canvasContext.beginPath()
         game.canvasContext.rect(paddle.paddleX, game.canvas.height-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
@@ -167,7 +175,7 @@ function collisionDetection(){
             for(var r=0; r<game.bRow; r++) {
                 var b = bricks.brick[c][r];
                 // calculations
-                if(game.canvasX > b.game.canvasX && game.canvasX < b.game.canvasX +game.bWidth && game.bWidth > b.game.canvasY && y < b.game.canvasY+brick.bHeight) {
+                if(game.canvasX > b.game.canvasX && game.canvasX < (b.game.canvasX + game.bWidth) && game.bWidth > b.game.canvasY && game.canvasY < b.game.canvasY+brick.bHeight) {
                     game.drawnY = -game.drawnY;
                 }
             }
@@ -193,7 +201,7 @@ function draw() {
     if (game.canvasY + game.drawnY < game.ballRadius) {
         game.drawnY = -game.drawnY
     } else if (game.canvasY + game.drawnY > game.canvas.height-game.ballRadius) {
-        if (game.canvasX > paddle.paddleX && game.canvasX < paddle.paddleX + paddle.paddleWidth) {
+        if (game.canvasX > paddle.paddleX && game.canvasX < (paddle.paddleX + paddle.paddleWidth)) {
             game.drawnY = -game.drawnY
             console.log(game.canvasX)
         }
