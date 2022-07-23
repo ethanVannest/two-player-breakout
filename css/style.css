@@ -35,7 +35,25 @@ body {
     text-align: center;
     display: inline-block;
 }
+#buttons {
+    display: flex;
+    justify-content: end;
+}
+#start-game{
+    font-size: 30px;
+    position: fixed;
+    background-color: #1bafdb;
+    color: #ffffff;
+    border-radius: 45%;
+    border: 2px solid black;
+    padding: 3px 10px 3px 10px;
+    
+}
 #sideBar{
 position: absolute;
+background-color: #1bafdb;
+border: 2px solid black;
+border-radius: 5%;
+padding: 20px;
 }
 #start a:hover, #game-over a:hover { background-color: #ffffff; color: #1bafdb; }

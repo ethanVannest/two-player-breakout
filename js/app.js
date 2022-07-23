@@ -214,6 +214,32 @@ function  keyup(e){
         paddle.leftPressed = false;
     }
 }
+// const hitTop = () =>{ game.canvasY < 0}
+// const hitLeftWall = () => { game.canvasX < 0}
+// const hitRightWall = () => {game.canvasX + game.ballRadius * 2 > game.canvas.width}
+// const hitPaddle = () => {
+// game.canvasY + 2 * game.ballRadius > game.canvas.height - paddle.paddleHeight &&
+// game.canvasY + game.ballRadius < game.canvas.height && 
+// game.canvasX + game.ballRadius > paddle.paddleX &&
+// game.canvasX + game.ballRadius < paddle.paddleX + paddle.width;
+// }
+// if (game.canvasX < 0) {
+// game.drawnX = -game.drawnX;
+// game.canvasX = 0;
+// }        
+// if (game.canvasX + game.ballRadius * 2 > game.canvas.width) {
+// game.drawnX = -game.drawnX;
+// game.canvasX = game.canvas.width - 2 * game.ballRadius;
+// }
+// if (game.canvasY < 0) {
+// game.drawnY = -game.drawnY;
+// game.canvasY = 0;
+// }
+// if (hitPaddle()) {
+// game.drawnY = -game.drawnY;
+// game.canvasY = game.canvas.height - paddle.paddleHeight - 2 * game.ballRadius;
+// }
+
 function collisionDetection(){
     var brickArr = bricks.brick
     var xAxis = game.canvasX
@@ -225,12 +251,12 @@ function collisionDetection(){
                 // calculations
                 if(xAxis > b.xAxis && xAxis< (b.xAxis + wideBrick) && yAxis > b.yAxis && yAxis < b.yAxis+ bricks.bHeight) {
                     game.drawnY = -game.drawnY;
+                    
                 }
             }
         }
         
     }
-    console.log(game.canvasX)
 function draw() {
     game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
     //clear rect clears a solid line that would be left behind the ball moving
@@ -238,19 +264,37 @@ function draw() {
     drawBall();
     drawPaddle();
     drawBricks();
+    // hitPaddle();
     game.canvasX += game.drawnX;
     
     game.canvasY += game.drawnY;
     if(game.canvasX + game.drawnX > game.canvas.width-game.ballRadius || game.canvasX + game.drawnX < game.ballRadius) {
         //Uses logical operator to add another layer of measuremeant to tell the code to send the ball the other way if the game drawn x -axis is less than the radius of the ball *this prevents the ball from disappearing halfway off the screen*
         game.drawnX = -game.drawnX;
+        // if (hitLeftWall()) {
+        //     game.drawnX = -game.drawnX;
+        //     game.canvasX = 0;
+        //     }        
+        //     if (hitRightWall()) {
+        //     game.drawnX = -game.drawnX;
+        //     game.canvasX = game.canvas.width - 2 * game.ballRadius;
+        //     }
+        //     if (hitTop()) {
+        //     game.drawnY = -game.drawnY;
+        //     game.canvasY = 0;
+        //     }
+        //     if (hitPaddle()) {
+        //     game.drawnY = -game.drawnY;
+        //     game.canvasY = game.canvas.height - paddle.paddleHeight - 2 * game.ballRadius;
+        //     }
         //this says that if the ball is touching the left or right side of the canvas then it is reversed
     }
-    if ((game.canvasY + game.drawnY) < game.ballRadius) {
-        game.drawnY = -game.drawnY
-    } else if ((game.canvasY + game.drawnY) > game.canvas.height-game.ballRadius) {
-        if (game.canvasX > paddle.paddleX && game.canvasX < (paddle.paddleX + paddle.paddleWidth)) {
-            game.drawnY = -game.drawnY
+     if ((game.canvasY + game.drawnY) < game.ballRadius) {
+        game.drawnY = -game.drawnY;
+    } else if (game.canvasY + game.drawnY > game.canvas.height-game.ballRadius) {
+       
+        if (game.canvasX > paddle.paddleX && game.canvasX < paddle.paddleX + paddle.paddleWidth) {
+            game.drawnY = -game.drawnY;
         }
         else {
             checkForPlayerTwo()
