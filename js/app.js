@@ -103,6 +103,9 @@ console.log('this works')
                 // console.log(bricks.brick[i][j].x)
             }
         }
+        
+        
+        
         // bricks.brick = {x:0, y:0}
         // }
         //IF playerOne score and Playertwo score is greater than zero 
@@ -141,18 +144,18 @@ console.log('this works')
                     }
                     console.log(winConditions.playerOneScore)
                     const checkForPlayerTwo = (event) => {
-                    if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
-                        for (el = 0; el < 1; el++){
-                            alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
-                        }
-                        winConditions.playerTwoScore = winConditions.setPlayer 
-                        winConditions.setPlayer = 0
-                                winConditions.currentId = winConditions.playerTwoScoreID
-                                paddle.paddleX = 440
-                                    game.canvasX = game.canvas.width/2;
-                                    game.canvasY = this.canvas.height-130;
-                                    game.drawnY = -game.drawnY 
-                                } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0) {
+                        if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
+                            for (el = 0; el < 1; el++){
+                                alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
+                            }
+                            winConditions.playerTwoScore = winConditions.setPlayer 
+                            winConditions.setPlayer = 0
+                            winConditions.currentId = winConditions.playerTwoScoreID
+                            paddle.paddleX = 440
+                            game.canvasX = game.canvas.width/2;
+                            game.canvasY = this.canvas.height-130;
+                            game.drawnY = -game.drawnY 
+                        } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0) {
                             alert("GAME OVER")
                             location.reload()
                             clearInterval(drawInt)
@@ -160,43 +163,50 @@ console.log('this works')
                         }
                     }
                     function drawBricks(){
-        // brickLoop()
-        for (let i = 0; i < bricks.bRow; i++){
-            for (let j = 0; j < bricks.bColumn; j++){
-                if (bricks.brick[i][j].hp === 1){
+                        // brickLoop()
+                        for (let i = 0; i < bricks.bRow; i++){
+                            for (let j = 0; j < bricks.bColumn; j++){
+                                if (bricks.brick[i][j].hp === 1){
+                                    
+                                    let brickX = (i*(bricks.bWidth+bricks.bPadding))+bricks.bMargLeft;
+                                    //when itterated over this multiplies each of the values by its corresponding amount so that the bricks are equal distance apart
+                                    let brickY = (j*(bricks.bHeight+bricks.bPadding))+bricks.bMargTop;
+                                    //similar idea of multiplying by each iteration
+                                    bricks.brick[i][j].x = brickX
+                                    bricks.brick[i][j].y = brickY
+                                    game.canvasContext.beginPath()
+                                    game.canvasContext.rect(brickX,brickY,bricks.bWidth,bricks.bHeight)
+                                    game.canvasContext.fillStyle = '#1B1B1B'
+                                    game.canvasContext.fill()
+                                    game.canvasContext.closePath()
+                                    
+                                }
+                                // else if (bricks.brick[i][j].hp === 0 && game.playerOneScore > 0){
+                                //     game.canvasContext.rect(brickX,brickY,bricks.bWidth,bricks.bHeight)
+                                //     checkForPlayerTwo()
 
-                    let brickX = (i*(bricks.bWidth+bricks.bPadding))+bricks.bMargLeft;
-                    //when itterated over this multiplies each of the values by its corresponding amount so that the bricks are equal distance apart
-                    let brickY = (j*(bricks.bHeight+bricks.bPadding))+bricks.bMargTop;
-                    //similar idea of multiplying by each iteration
-                    bricks.brick[i][j].x = brickX
-                    bricks.brick[i][j].y = brickY
-                    game.canvasContext.beginPath()
-                    game.canvasContext.rect(brickX,brickY,bricks.bWidth,bricks.bHeight)
-                    game.canvasContext.fillStyle = '#1B1B1B'
-                    game.canvasContext.fill()
-                    game.canvasContext.closePath()
-                }
-            }
-        }
-}
-function drawBall() {
-    game.canvasContext.beginPath();
-    //Starts a line from the given point
-    game.canvasContext.arc(game.canvasX, game.canvasY, game.ballRadius, 0, Math.PI*2);
-    //creates the shape of the circle
-    game.canvasContext.fillStyle = '#1B1B1B'
-    game.canvasContext.fill()
-    //Fills colors and given color
-    game.canvasContext.closePath();
-    //Makes a trail back to the original starting point
-    
-}
-// console.log(drawBall());
-
-document.addEventListener("keydown", keydown) 
-document.addEventListener('keyup', keyup)
-// console.log(paddle.rightPressed)
+                                //SHOULD RESET THE BRICKS AFTER THEY ARE BROKEN
+                                }
+                            }
+                        }
+                    }
+                    function drawBall() {
+                        game.canvasContext.beginPath();
+                        //Starts a line from the given point
+                        game.canvasContext.arc(game.canvasX, game.canvasY, game.ballRadius, 0, Math.PI*2);
+                        //creates the shape of the circle
+                        game.canvasContext.fillStyle = '#1B1B1B'
+                        game.canvasContext.fill()
+                        //Fills colors and given color
+                        game.canvasContext.closePath();
+                        //Makes a trail back to the original starting point
+                        
+                    }
+                    // console.log(drawBall());
+                    
+                    document.addEventListener("keydown", keydown) 
+                    document.addEventListener('keyup', keyup)
+                    // console.log(paddle.rightPressed)
 function  keydown(e){
     if (e.code === 'ArrowRight'){
         paddle.rightPressed = true;
