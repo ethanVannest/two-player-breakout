@@ -189,7 +189,6 @@ console.log('this works')
                                 }
                             }
                         }
-                    }
                     function drawBall() {
                         game.canvasContext.beginPath();
                         //Starts a line from the given point
