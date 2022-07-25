@@ -127,7 +127,7 @@ console.log('this works')
                     
                     function drawPaddle() {
                         game.canvasContext.beginPath()
-                        game.canvasContext.rect(paddle.paddleX, game.canvas.height-paddle.paddleWidth, paddle.paddleWidth, paddle.paddleHeight)
+                        game.canvasContext.rect(paddle.paddleX, game.canvas.height-paddle.paddleHeight, paddle.paddleWidth, paddle.paddleHeight)
                         //the .rect method creates a rectangle taking 
                         //takes parameters that take the dimmensions of the paddle
                         //returns color to canvas
@@ -136,13 +136,13 @@ console.log('this works')
                         game.canvasContext.closePath()
                         
                     }
-                    const ballMissed = () => {
-                        alert(`Ball missed the paddle! Up next is ${playerTwoName}!`);
-                    }
-                    const stopBallMissed = (int) => {
-                        clearInterval(int)
-                    }
-                    console.log(winConditions.playerOneScore)
+                    // const ballMissed = () => {
+                    //     alert(`Ball missed the paddle! Up next is ${playerTwoName}!`);
+                    // }
+                    // const stopBallMissed = (int) => {
+                    //     clearInterval(int)
+                    // }
+                    // console.log(winConditions.playerOneScore)
                     const checkForPlayerTwo = (event) => {
                         if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
                             for (el = 0; el < 1; el++){
@@ -254,9 +254,11 @@ function collisionDetection(){
     var xAxis = game.canvasX
     var yAxis = game.canvasY
     var wideBrick = bricks.bWidth
-        for(var c=0; c<game.bColumn; c++) {
+    for(var c=0; c<game.bColumn; c++) {
+            console.log("c",c)
             for(var r=0; r<game.bRow; r++) {
                 var b = brickArr[c][r];
+                console.log("b",b)
                 // calculations
                 if(xAxis > b.xAxis && xAxis< (b.xAxis + wideBrick) && yAxis > b.yAxis && yAxis < b.yAxis+ bricks.bHeight) {
                     game.drawnY = -game.drawnY;
@@ -264,97 +266,89 @@ function collisionDetection(){
                 }
             }
         }
-        
+        //b.bricks.brick
     }
 function draw() {
     game.canvasContext.clearRect(0, 0, game.canvas.width, game.canvas.height);
     //clear rect clears a solid line that would be left behind the ball moving
-    collisionDetection();
+    // collisionDetection();
     drawBall();
     drawPaddle();
     drawBricks();
     // hitPaddle();
-    game.canvasX += game.drawnX;
-    
-    game.canvasY += game.drawnY;
     if(game.canvasX + game.drawnX > game.canvas.width-game.ballRadius || game.canvasX + game.drawnX < game.ballRadius) {
         //Uses logical operator to add another layer of measuremeant to tell the code to send the ball the other way if the game drawn x -axis is less than the radius of the ball *this prevents the ball from disappearing halfway off the screen*
         game.drawnX = -game.drawnX;
-        // if (hitLeftWall()) {
-        //     game.drawnX = -game.drawnX;
-        //     game.canvasX = 0;
-        //     }        
-        //     if (hitRightWall()) {
-        //     game.drawnX = -game.drawnX;
-        //     game.canvasX = game.canvas.width - 2 * game.ballRadius;
-        //     }
-        //     if (hitTop()) {
-        //     game.drawnY = -game.drawnY;
-        //     game.canvasY = 0;
-        //     }
-        //     if (hitPaddle()) {
-        //     game.drawnY = -game.drawnY;
-        //     game.canvasY = game.canvas.height - paddle.paddleHeight - 2 * game.ballRadius;
-        //     }
         //this says that if the ball is touching the left or right side of the canvas then it is reversed
     }
-     if ((game.canvasY + game.drawnY) < game.ballRadius) {
+    if (game.canvasY + game.drawnY < game.ballRadius) {
         game.drawnY = -game.drawnY;
-    } else if (game.canvasY + game.drawnY > game.canvas.height-game.ballRadius) {
-       
+    }
+    //             }
+    else if (game.canvasY + game.drawnY > game.canvas.height - game.ballRadius) {
         if (game.canvasX > paddle.paddleX && game.canvasX < paddle.paddleX + paddle.paddleWidth) {
-            game.drawnY = -game.drawnY;
+            if (game.canvasY = game.canvasY - paddle.paddleHeight) {
+                game.drawnY = -game.drawnY;
+            }
         }
-        else {
-            checkForPlayerTwo()
-            // alert("GAME OVER")
-            // location.reload()
-            // clearInterval(drawInt)
-        } 
-    }
-//game.canvasY + game.drawnY > game.canvas.height-game.ballRadius    
-    // if(game.canvasY + game.drawnY > game.canvas.height-game.ballRadius || game.canvasY + game.drawnY < game.ballRadius) {
-    //     game.drawnY = -game.drawnY;
-    //     //if the ball is touching the top or bottom of the canvas then it is reversed
-    // }
-
-    // console.log(game.canvas.height)
-    // //doesnt work ball goes straight through the paddle
-    // else if(game.canvasY + game.drawnY> game.canvas.height - ballRadius){
-    //     if (game.drawnY + game.canvasY < game.ballRadius){
-    //         game.drawnY = -game.drawnY
-    //     } 
-    //      if (game.drawnY > game.canvas.height-game.ballRadius) {
-    //         if (game.canvasX > paddle.paddleX && game.canvasX < paddle.paddleWidth + paddle.paddleX) {
-    //             game.drawnY = -game.drawnY
-    //         }
-    //     }
-    // }
-    //Doesnt work it keeps the ball below the paddle
-    if (paddle.rightPressed){
-        paddle.paddleX += 4
-        if (paddle.paddleX > 880) {
-            paddle.paddleX = 880
-        }
-        // console.log(paddle.paddleX)
-    } else if (paddle.leftPressed){
-        paddle.paddleX -= 4
-        if (paddle.paddleX < 0){
-            paddle.paddleX = 0
-        }
-    }
-}
-// }
-    //DEFINE function called start screen
-    // change screen to actual game
-    //DEFINE function called start game
-    //WHEN clicked start game
-    //ASK for player one name
-    //IF empty name player one
-    //END if 
-    //ASK (after player one) as for player two name
-    //IF name is empty use name 'Player two'
-    //maybe* add a count down from three to actually begin the game
+        //  else if (game.canvasY + game.drawnY > game.canvas.height-game.ballRadius) {
+            //     if (game.canvasX > paddle.paddleX && game.canvasX < paddle.paddleX + paddle.paddleWidth) {
+                //             if(game.canvasY = game.canvasY - paddle.paddleHeight){
+                    //                 game.drawnY = -game.drawnY;
+                    else {
+                        checkForPlayerTwo()
+                        // alert("GAME OVER")
+                        // location.reload()
+                        // clearInterval(drawInt)
+                    } 
+                }
+                //game.canvasY + game.drawnY > game.canvas.height-game.ballRadius    
+                // if(game.canvasY + game.drawnY > game.canvas.height-game.ballRadius || game.canvasY + game.drawnY < game.ballRadius) {
+                    //     game.drawnY = -game.drawnY;
+                    //     //if the ball is touching the top or bottom of the canvas then it is reversed
+                    // }
+                    
+                    // console.log(game.canvas.height)
+                    // //doesnt work ball goes straight through the paddle
+                    // else if(game.canvasY + game.drawnY> game.canvas.height - ballRadius){
+                        //     if (game.drawnY + game.canvasY < game.ballRadius){
+                            //         game.drawnY = -game.drawnY
+                            //     } 
+                            //      if (game.drawnY > game.canvas.height-game.ballRadius) {
+                                //         if (game.canvasX > paddle.paddleX && game.canvasX < paddle.paddleWidth + paddle.paddleX) {
+                                    //             game.drawnY = -game.drawnY
+                                    //         }
+                                    //     }
+                                    // }
+                                    //Doesnt work it keeps the ball below the paddle
+                                    if (paddle.rightPressed){
+                                        paddle.paddleX += 4
+                                        if (paddle.paddleX > 880) {
+                                            paddle.paddleX = 880
+                                        }
+                                        // console.log(paddle.paddleX)
+                                    } else if (paddle.leftPressed){
+                                        paddle.paddleX -= 4
+                                        if (paddle.paddleX < 0){
+                                            paddle.paddleX = 0
+                                        }
+                                    }
+                                    game.canvasX += game.drawnX;
+                                    
+                                    game.canvasY += game.drawnY;
+                                    
+                                }
+                                // }
+                                //DEFINE function called start screen
+                                // change screen to actual game
+                                //DEFINE function called start game
+                                //WHEN clicked start game
+                                //ASK for player one name
+                                //IF empty name player one
+                                //END if 
+                                //ASK (after player one) as for player two name
+                                //IF name is empty use name 'Player two'
+                                //maybe* add a count down from three to actually begin the game
     //End Start game
     //SET intereval for every second that passes add 5 Points to whoever is playing at the time
     //everytime that a box is touched/broken add 10 points to whoever is up at the time
