@@ -18,22 +18,7 @@
 // var brickPadding = 10;
 // var brickOffsetTop = 30;
 // var brickOffsetLeft = 30;
-// const startButton = document.getElementById('start-game')
-// startButton.addEventListener('click', event => {
-//     playerOneName = prompt("Player One Name?")
-//     if (playerOneName === ''){
-//         let playerOneName = 'Player One' 
-//     }
-//     playerTwoName = prompt("Player Two Name?")
-//     if (playerTwoName === '' ){
-//         let playerTwoName = 'Player Two'
-//     }
-//     document.getElementById('player1').innerText = playerOneName
-//     document.getElementById('player2').innerText = playerTwoName
-//     // setInterval(winConditions.checkGameTime(),1000)
-//     // drawInterval();
-//     var interval = setInterval(draw, 10);
-//         })
+
 // var bricks = [];
 // for (var c = 0; c < brickColumnCount; c++) {
 //     bricks[c] = [];
@@ -41,7 +26,7 @@
 //         bricks[c][r] = { x: 0, y: 0, status: 1 };
 //     }
 // }
-
+// console.log(bricks[c][r].status)
 // document.addEventListener("keydown", keyDownHandler, false);
 // document.addEventListener("keyup", keyUpHandler, false);
 
