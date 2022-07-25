@@ -76,6 +76,7 @@ console.log('this works')
     }
     const paddle = new Paddle
     
+    var brick = []
     var canvasX = this.canvas.width/2;
     var canvasY = this.canvas.height-130;
     var bRow = 7
@@ -85,18 +86,16 @@ console.log('this works')
     var bPadding = 20
     var bMargTop = 20 //this is the space from the top of the padding the brick has
     var bMargLeft = 20
-    var brick = []
     //the space to the left of the brick outside of the padding
     
     // console.log(game.canvas.width)
     // let brickLoop =() => {
-        for (var i = 0; i < bColumn; i++){
+        for (var i = 0; i < bRow; i++){
             brick[i] = [];
-            for (var j = 0; j < bRow; j++){
+            for (var j = 0; j < bColumn; j++){
                 brick[i][j] = { canvasX: 0, canvasY: 0, hp: 1 };
             }
         }
-        
         
         
         // bricks.brick = {x:0, y:0}
@@ -149,10 +148,10 @@ console.log('this works')
                         }
                     }
                     function collisionDetection(){
-                        for(var i=0; i < bColumn; i++) {
-                                for(var j = 0; j < bRow; j++) {
-                                    var b = brick[i][j]
-                                    // console.log(b)
+                        for(let i=0; i < bColumn; i++) {
+                                for(let j = 0; j < bRow; j++) {
+                                    let b = brick[j][i]
+                                    console.log(brick[i][j],i,j)
                                     // calculations
                                     if (b.hp === 1){
                                         if(canvasX > b.canvasX && canvasX < b.canvasX + bWidth && canvasY > b.canvasY && canvasY < b.canvasY + bHeight) {

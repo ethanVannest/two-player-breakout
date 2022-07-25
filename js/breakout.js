@@ -1,4 +1,3 @@
-// console.log('this works')
 // var canvas = document.getElementById("canvas");
 // var ctx = canvas.getContext("2d");
 // var ballRadius = 10;
@@ -26,7 +25,7 @@
 //         bricks[c][r] = { x: 0, y: 0, status: 1 };
 //     }
 // }
-// console.log(bricks[c][r].status)
+
 // document.addEventListener("keydown", keyDownHandler, false);
 // document.addEventListener("keyup", keyUpHandler, false);
 
@@ -47,10 +46,12 @@
 //         leftPressed = false;
 //     }
 // }
+// console.log(bricks[c][r].status)
 // function collisionDetection() {
 //     for (var c = 0; c < brickColumnCount; c++) {
 //         for (var r = 0; r < brickRowCount; r++) {
 //             var b = bricks[c][r];
+//             console.log(b.status)
 //             if (b.status == 1) {
 //                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
 //                     dy = -dy;
@@ -128,3 +129,5 @@
 //     x += dx;
 //     y += dy;
 // }
+
+// var interval = setInterval(draw, 10);
