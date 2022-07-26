@@ -155,6 +155,7 @@ console.log('this works')
                     }
                             
                     
+                    let blockCount = 35;
                      function collisionDetection(){
                         for(let i=0; i < bColumn; i++) {
                             for(let j = 0; j < bRow; j++) {
@@ -164,7 +165,8 @@ console.log('this works')
                                 if (b.hp === 1){
                                     if(canvasX > b.canvasX && canvasX < b.canvasX + bWidth && canvasY > b.canvasY && canvasY < b.canvasY + bHeight) {
                                         game.drawnY = -game.drawnY;
-                                        b.hp = 0;    
+                                        b.hp = 0;
+                                        blockCount--    
                                         } 
                                     }
                                 }            
@@ -225,13 +227,15 @@ console.log('this works')
                                     }
                                 }
                             }
-                            // console.log(brick[i][j].hp)
                             const switchPlayerTwo = () => {
-                                if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore === 0 && i.hp === 0){
+                                console.log(brick.hp)
+                                console.log(blockCount)
+                                if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore === 0 && blockCount === 0){
                                     //trying to get the hp value for all bricks
                                         for (el = 0; el < 1; el++){
                                 alert(`All bricks broken! Up next is ${playerTwoName}!`)
                                     }
+                                    blockCount = 35
                                     winConditions.playerTwoScore = winConditions.setPlayer 
                                     winConditions.setPlayer = 0
                                     winConditions.currentId = winConditions.playerTwoScoreID
@@ -239,8 +243,8 @@ console.log('this works')
                                     canvasX = game.canvas.width/2;
                                     canvasY = this.canvas.height-130;
                                     game.drawnY = -game.drawnY
-                                    b.hp = 1 
-                                } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0 && i.hp === 0){
+                                    b.hp = 1
+                                } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0 && blockCount === 0){
                                     //trying to get the hp value for all bricks
                                     alert("GAME OVER")
                                     location.reload()
