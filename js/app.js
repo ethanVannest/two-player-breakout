@@ -87,7 +87,6 @@ console.log('this works')
     var bMargTop = 20 //this is the space from the top of the padding the brick has
     var bMargLeft = 20
     //the space to the left of the brick outside of the padding
-    
     // console.log(game.canvas.width)
     // let brickLoop =() => {
         for (var i = 0; i < bRow; i++){
@@ -129,17 +128,23 @@ console.log('this works')
                         
                     }
                     const checkForPlayerTwo = (event) => {
-                        if (winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
+                        if(winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
                             for (el = 0; el < 1; el++){
                                 alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
+                            }       
+                            for(let i=0; i < bColumn; i++) {
+                                for(let j = 0; j < bRow; j++) {
+                                    let b = brick[j][i]
+                                    b.hp = 1
+                                }
                             }
-                            winConditions.playerTwoScore = winConditions.setPlayer 
-                            winConditions.setPlayer = 0
-                            winConditions.currentId = winConditions.playerTwoScoreID
-                            paddle.paddleX = 440
-                            canvasX = game.canvas.width/2;
-                            canvasY = this.canvas.height-130;
-                            game.drawnY = -game.drawnY 
+                                    winConditions.playerTwoScore = winConditions.setPlayer 
+                                    winConditions.setPlayer = 0
+                                    winConditions.currentId = winConditions.playerTwoScoreID
+                                    paddle.paddleX = 440
+                                    canvasX = game.canvas.width/2;
+                                    canvasY = this.canvas.height-130;
+                                    game.drawnY = -game.drawnY 
                         } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0) {
                             alert("GAME OVER")
                             location.reload()
@@ -147,17 +152,34 @@ console.log('this works')
                             winConditions.checkScore()
                         }
                     }
-                    function collisionDetection(){
+                            
+                    
+                            function collisionDetection(){
                         for(let i=0; i < bColumn; i++) {
-                                for(let j = 0; j < bRow; j++) {
-                                    let b = brick[j][i]
-                                    console.log(brick[i][j],i,j)
-                                    // calculations
-                                    if (b.hp === 1){
-                                        if(canvasX > b.canvasX && canvasX < b.canvasX + bWidth && canvasY > b.canvasY && canvasY < b.canvasY + bHeight) {
-                                            game.drawnY = -game.drawnY;
-                                            b.hp = 0;
+                            for(let j = 0; j < bRow; j++) {
+                                let b = brick[j][i]
+                                // console.log(b)
+                                // calculations
+                                if (b.hp === 1){
+                                    if(canvasX > b.canvasX && canvasX < b.canvasX + bWidth && canvasY > b.canvasY && canvasY < b.canvasY + bHeight) {
+                                        game.drawnY = -game.drawnY;
+                                        b.hp = 0;
                                         
+                                    } else {
+                                        if (b.hp === 0 && winConditions.playerOneScore > 0 && winConditions.playerTwoScore === 0) {
+                                            for (el1 = 0; el1 < 1; el1++){
+                                                alert(`All bricks broken. Your score is ${playerOneScore}! Switching to ${playerTwoName}!`)
+                                            }
+                                            b.hp = 1
+                                            winConditions.playerTwoScore = winConditions.setPlayer 
+                                            winConditions.setPlayer = 0
+                                            winConditions.currentId = winConditions.playerTwoScoreID
+                                            paddle.paddleX = 440
+                                            canvasX = game.canvas.width/2;
+                                            canvasY = this.canvas.height-130;
+                                            game.drawnY = -game.drawnY 
+
+                                        }
                                     }
                                     
                                 }
@@ -184,34 +206,59 @@ console.log('this works')
                                     
                                 }
                                 // else if (bricks.brick[i][j].hp === 0 && game.playerOneScore > 0){
-                                //     game.canvasContext.rect(brickX,brickY,bricks.bWidth,bricks.bHeight)
-                                //     checkForPlayerTwo()
-
-                                //SHOULD RESET THE BRICKS AFTER THEY ARE BROKEN
+                                    //     game.canvasContext.rect(brickX,brickY,bricks.bWidth,bricks.bHeight)
+                                    //     checkForPlayerTwo()
+                                    
+                                    //SHOULD RESET THE BRICKS AFTER THEY ARE BROKEN
                                 }
                             }
                         }
-                    function drawBall() {
-                        game.canvasContext.beginPath();
-                        //Starts a line from the given point
-                        game.canvasContext.arc(canvasX, canvasY, game.ballRadius, 0, Math.PI*2);
-                        //creates the shape of the circle
-                        game.canvasContext.fillStyle = '#1B1B1B'
-                        game.canvasContext.fill()
-                        //Fills colors and given color
-                        game.canvasContext.closePath();
-                        //Makes a trail back to the original starting point
-                        
-                    }
-                    // console.log(drawBall());
-                    
-                    document.addEventListener("keydown", keydown) 
-                    document.addEventListener('keyup', keyup)
-                    // console.log(paddle.rightPressed)
-function  keydown(e){
-    if (e.code === 'ArrowRight'){
-        paddle.rightPressed = true;
-        // console.log(paddle.rightPressed)
+                        function drawBall() {
+                            game.canvasContext.beginPath();
+                            //Starts a line from the given point
+                            game.canvasContext.arc(canvasX, canvasY, game.ballRadius, 0, Math.PI*2);
+                            //creates the shape of the circle
+                            game.canvasContext.fillStyle = '#1B1B1B'
+                            game.canvasContext.fill()
+                            //Fills colors and given color
+                            game.canvasContext.closePath();
+                            //Makes a trail back to the original starting point
+                            
+                        }
+                        // console.log(brick[i][j].hp)
+                        const switchPlayerTwo = () => {
+                            if(winConditions.playerTwoScore === 0 && winConditions.playerOneScore > 0){
+                                for (el = 0; el < 1; el++){
+                                    alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
+                                }       
+                                for(let i=0; i < bColumn; i++) {
+                                    for(let j = 0; j < bRow; j++) {
+                                        let b = brick[j][i]
+                                        winConditions.playerTwoScore = winConditions.setPlayer 
+                                        winConditions.setPlayer = 0
+                                        winConditions.currentId = winConditions.playerTwoScoreID
+                                        paddle.paddleX = 440
+                                        canvasX = game.canvas.width/2;
+                                        canvasY = this.canvas.height-130;
+                                        game.drawnY = -game.drawnY 
+                                        b.hp = 1
+                                    }
+                                }
+                            } else if (winConditions.playerOneScore > 0 && winConditions.playerTwoScore > 0) {
+                                alert("GAME OVER")
+                                location.reload()
+                                clearInterval(drawInt)
+                                winConditions.checkScore()
+                            }
+                        }
+                            
+                        document.addEventListener("keydown", keydown) 
+                        document.addEventListener('keyup', keyup)
+                        // console.log(paddle.rightPressed)
+                        function  keydown(e){
+                            if (e.code === 'ArrowRight'){
+                                paddle.rightPressed = true;
+                                // console.log(paddle.rightPressed)
     } else if (e.code === 'ArrowLeft' ) {
         paddle.leftPressed = true;
     }
@@ -233,6 +280,7 @@ function draw() {
     drawPaddle();
     drawBricks();
     collisionDetection();
+    // switchPlayerTwo()
     if(canvasX + game.drawnX > game.canvas.width-game.ballRadius || canvasX + game.drawnX < game.ballRadius) {
         //Uses logical operator to add another layer of measuremeant to tell the code to send the ball the other way if the game drawn x -axis is less than the radius of the ball *this prevents the ball from disappearing halfway off the screen*
         game.drawnX = -game.drawnX;
@@ -248,6 +296,9 @@ function draw() {
                 game.drawnY = -game.drawnY;
             }
                 }else {
+                    // for (el = 0; el < 1; el++){
+                    //     alert(`Ball missed the paddle! Up next is ${playerTwoName}!`)
+                    // }
                     checkForPlayerTwo()
             } 
         }
