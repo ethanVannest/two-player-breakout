@@ -31,6 +31,7 @@ The majority of the game is created using an html tool called canvas that allows
 UNSOLVED ISSUES
 ====================
 -Brick reset on player two
+-Ball pathing on completed brick field player One
 ====================
 UPCOMING FEATURES
 ====================
